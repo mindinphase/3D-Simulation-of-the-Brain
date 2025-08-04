@@ -44,3 +44,10 @@ class Environment:
             position = self.agent_pos
         x, y = position
         return self.coherence_field[x, y]
+    
+    def disturb_field(self, position, magnitude=0.05, decay=0.95):
+        # Agent modifies local field value (depresses or amplifies local resonance)
+        x, y = position
+        self.coherence_field *= decay
+        self.coherence_field[x, y] += magnitude
+        self.coherence_field = np.clip(self.coherence_field, 0.0, 1.0)
